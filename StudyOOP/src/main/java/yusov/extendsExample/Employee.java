@@ -13,4 +13,9 @@ public class Employee extends Person {
         System.out.println(getName() + " works in "+ this.company);
     }
 
+    @Override
+    public void printName() {
+        super.printName();
+        System.out.println("Company: " + this.company);
+    }
 }
