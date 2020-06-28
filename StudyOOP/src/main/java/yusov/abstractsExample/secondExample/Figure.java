@@ -1,4 +1,4 @@
-package yusov.abstractExample.secondExample;
+package yusov.abstractsExample.secondExample;
 
 public abstract class Figure {
     float x;

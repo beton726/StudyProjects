@@ -1,4 +1,4 @@
-package yusov.abstractExample.firstExample;
+package yusov.abstractsExample.firstExample;
 
 public class Source{
     public static void main(String[] args) {

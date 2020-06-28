@@ -1,10 +1,10 @@
-package yusov.abstractExample.firstExample;
+package yusov.abstractsExample.firstExample;
 
-public class Client extends Person {
+public class Employee extends Person {
 
     private String bank;
 
-    public Client(String name, String company) {
+    public Employee(String name, String company) {
         // Ключевое слово super, служит для вызова конструктора суперкласса(родителя)
         super(name);
         this.bank = company;
@@ -12,6 +12,6 @@ public class Client extends Person {
 
     @Override
     public void display() {
-        System.out.println("Client name: " + super.getName() + " \nBank: " + bank);
+        System.out.println("Employee name: " + super.getName() + " \nBank: " + bank);
     }
 }

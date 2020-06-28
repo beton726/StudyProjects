@@ -1,4 +1,4 @@
-package yusov.abstractExample.firstExample;
+package yusov.abstractsExample.firstExample;
 
 public abstract class Person {
     private String name;

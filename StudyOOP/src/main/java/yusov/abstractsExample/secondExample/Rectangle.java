@@ -1,4 +1,4 @@
-package yusov.abstractExample.secondExample;
+package yusov.abstractsExample.secondExample;
 
 public class Rectangle extends Figure {
 

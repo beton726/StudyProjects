@@ -1,4 +1,4 @@
-package yusov.abstractExample.secondExample;
+package yusov.abstractsExample.secondExample;
 
 public class Source {
     public static void main(String[] args) {
@@ -6,5 +6,7 @@ public class Source {
         System.out.println("Выводим площадь: " + rectangle.getArea());
         System.out.println("Выводим периметр: " + rectangle.getPerimetr());
         System.out.println("Просто сумма: " + rectangle.sum());
+        Figure figure = new Rectangle(1,1,1,1);
+        System.out.println(figure.getFigureSum());
     }
 }
