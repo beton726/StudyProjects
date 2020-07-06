@@ -28,27 +28,27 @@ public class Space {
     }
 
     public SpaceShip getShip() {
-        return this.ship;
+        return ship;
     }
 
     public int getWidth() {
-        return this.width;
+        return width;
     }
 
     public int getHeight() {
-        return this.height;
+        return height;
     }
 
     public List<Ufo> getUfos() {
-        return this.ufos;
+        return ufos;
     }
 
     public List<Rocket> getRockets() {
-        return this.rockets;
+        return rockets;
     }
 
     public List<Bomb> getBombs() {
-        return this.bombs;
+        return bombs;
     }
 
     public static void run() {
