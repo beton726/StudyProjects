@@ -51,6 +51,18 @@ public class Space {
         return this.bombs;
     }
 
+    public static void run() {
+
+    }
+
+    public static void draw() {
+
+    }
+
+    public static void sleep(int ms) {
+
+    }
+
     public static void main(String[] args) {
     }
 }
