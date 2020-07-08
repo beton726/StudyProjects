@@ -1,21 +1,30 @@
 package src.yusov;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
-import java.util.logging.*;
 
 public class Source {
 
-    private static final Logger logger = Logger.getLogger(Source.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(Source.class.getName());
 
     public static void main(String[] args) throws IOException {
-        // Чтение конфигурации
-        LogManager.getLogManager().readConfiguration();
 
-        Handler fileHandler = new FileHandler();
-        logger.setUseParentHandlers(false);     // отключает вывод в консоль
-//        logger.addHandler(fileHandler);
+        logger.info("Начало работы программы.");
+        try {
+            logger.warn("Внмание!");
+            System.out.println(12/0);
+        } catch (ArithmeticException x) {
+            logger.error("Произошла арифметическая ошибка!");
+        }
 
-        logger.info("info");
+
+
+
+
+
+
 
 
     }

@@ -13,4 +13,9 @@ C:\Program Files\Jdk\jre\lib\logging.properties
 
 Я создал свой лог:
 D:\Programming\Java\Java_Programs\StudyProjects\SampleLoggingCode\src\main\logging\log.properties
+Необходимо указать этот путь в Edit Configurations -> поле: VM options -> указываем там такую строчку:
+-Djava.util.logging.config.file=D:\Programming\Java\Java_Programs\StudyProjects\SampleLoggingCode\src\main\logging\log.properties
+Простой путь к указанию своих конфигураций файла логирования.
+
+
 
