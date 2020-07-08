@@ -1,0 +1,16 @@
+Уровни логирования:
+ALL     - все сообщения
+TRACE   - мелкое сообщение при отладке
+DEBUG   - важные сообщения при отладке
+INFO    - просто сообщение
+WARN    - предупреждение
+ERROR   - ошибка
+FATAL   - фатальная ошибка
+OFF     - нет сообщения
+
+Файл с настройками логгера лежит по пути:
+C:\Program Files\Jdk\jre\lib\logging.properties
+
+Я создал свой лог:
+D:\Programming\Java\Java_Programs\StudyProjects\SampleLoggingCode\src\main\logging\log.properties
+
