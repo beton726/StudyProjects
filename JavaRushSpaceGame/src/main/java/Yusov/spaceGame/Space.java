@@ -1,5 +1,6 @@
 package Yusov.spaceGame;
 
+import Yusov.spaceGame.drawObjects.Canvas;
 import Yusov.spaceGame.flyObjects.SpaceShip;
 import Yusov.spaceGame.flyObjects.Ufo;
 import Yusov.spaceGame.weapons.Bomb;
@@ -64,5 +65,13 @@ public class Space {
     }
 
     public static void main(String[] args) {
+        char[][] arrChar = new char[][]{{'a','t'},{'b','t'},{'c','f'},{'d','f'}};
+        Canvas canvas = new Canvas();
+
+        canvas.setMatrix(arrChar);
+
+        System.out.println(canvas.getMatrix());
+
+
     }
 }
