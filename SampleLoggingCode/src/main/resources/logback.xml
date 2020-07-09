@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!--Для вывода логов в консоль-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>[%thread] %-5level %logger{20} - %msg%n</pattern>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--Для записи логов в файл-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>D:/Programming/ForTest/logFile.log</file>
+        <rollingPolicy name="FILE" class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <maxFileSize>1MB</maxFileSize>
+            <!--Если надо в новом созданном файле указывать дату и время-->
+<!--            <fileNamePattern>D:/Programming/ForTest/logFile.%d{yyyy-MM-dd-HH-mm}.%i.log</fileNamePattern>-->
+            <fileNamePattern>D:/Programming/ForTest/logFile.%i.log</fileNamePattern>
+        </rollingPolicy>
+
+        <append>true</append> <!--Для повторной записи.-->
+        <encoder>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="java.src.yusov.Source" level="INFO" />
-
     <root level="INFO">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration>

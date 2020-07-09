@@ -11,16 +11,16 @@ public class Source {
 
     public static void main(String[] args) throws IOException {
 
-
-        logger.info("Message for info");
-        logger.debug("Message for debug");
-        try {
-            logger.warn("Внмание!");
-            System.out.println(12/0);
-        } catch (ArithmeticException x) {
-            logger.error("Произошла арифметическая ошибка!", x);
+        for (int i = 0; i < 100; i++) {
+            logger.info("Message for info");
+            logger.debug("Message for debug");
+            try {
+                logger.warn("Внимание!");
+                System.out.println(12/0);
+            } catch (ArithmeticException x) {
+                logger.error("Произошла арифметическая ошибка!", x);
+            }
         }
-
 
 
     }
