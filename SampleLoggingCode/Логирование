@@ -16,6 +16,11 @@ slf4j - обеспечивает простую абстракцию всех к
 LoggerFactory - класс пакета org.slf4j, который используется для создания регистраторов для различных API-интерфейсов
 журналирования, таких как log4j, jul, logback.
 
+Ссылка по Class RollingFileAppender:
+https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/RollingFileAppender.html#setMaxFileSize(java.lang.String)
+
+Example SFL4J + Logback:
+https://mkyong.com/logging/slf4j-logback-tutorial/
 
 
 

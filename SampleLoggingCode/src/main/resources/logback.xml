@@ -9,12 +9,10 @@
     </appender>
     <!--Для записи логов в файл-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>D:/Programming/ForTest/logFile.log</file>
+        <file>D:/Programming/ForTest/logFile.log</file> <!--Указываем путь куда будут выгружаться логи-->
         <rollingPolicy name="FILE" class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <maxFileSize>1MB</maxFileSize>
-            <!--Если надо в новом созданном файле указывать дату и время-->
-<!--            <fileNamePattern>D:/Programming/ForTest/logFile.%d{yyyy-MM-dd-HH-mm}.%i.log</fileNamePattern>-->
-            <fileNamePattern>D:/Programming/ForTest/logFile.%i.log</fileNamePattern>
+            <maxFileSize>5KB</maxFileSize>
+            <fileNamePattern>D:/Programming/ForTest/logFile.%d{yyyy-MM-dd-HH-mm}.%i.log</fileNamePattern>
         </rollingPolicy>
 
         <append>true</append> <!--Для повторной записи.-->
@@ -22,8 +20,8 @@
             <pattern>%d %p %c{1.} [%t] %m%n</pattern>
         </encoder>
     </appender>
-
-    <root level="INFO">
+    <!--Задаём уровень логирования-->
+    <root level="ERROR">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
