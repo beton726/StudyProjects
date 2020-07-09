@@ -70,7 +70,7 @@ public class Space {
 
         canvas.setMatrix(arrChar);
 
-        System.out.println(canvas.getMatrix());
+        System.out.println(canvas.getMatrix()[0][1]);
 
 
     }
