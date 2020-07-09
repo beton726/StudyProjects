@@ -11,19 +11,15 @@ public class Source {
 
     public static void main(String[] args) throws IOException {
 
-        logger.info("Начало работы программы.");
+
+        logger.info("Message for info");
+        logger.debug("Message for debug");
         try {
             logger.warn("Внмание!");
             System.out.println(12/0);
         } catch (ArithmeticException x) {
-            logger.error("Произошла арифметическая ошибка!");
+            logger.error("Произошла арифметическая ошибка!", x);
         }
-
-
-
-
-
-
 
 
 

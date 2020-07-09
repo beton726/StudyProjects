@@ -8,14 +8,18 @@ ERROR   - ошибка
 FATAL   - фатальная ошибка
 OFF     - нет сообщения
 
-Файл с настройками логгера лежит по пути:
-C:\Program Files\Jdk\jre\lib\logging.properties
+Логирование с помощью slf4j.
+slf4j - обеспечивает простую абстракцию всех каркасов логирования в JAVA. Он позволяет работать с любой из сред ведения
+журналов, таких как: log4j, logback, jul(java.util.logging).
+Используя slf4j возможно перейти перейти на любую инфрастуктуру журналирования, которая нужна во время развёртывания.
 
-Я создал свой лог:
-D:\Programming\Java\Java_Programs\StudyProjects\SampleLoggingCode\src\main\logging\log.properties
-Необходимо указать этот путь в Edit Configurations -> поле: VM options -> указываем там такую строчку:
--Djava.util.logging.config.file=D:\Programming\Java\Java_Programs\StudyProjects\SampleLoggingCode\src\main\logging\log.properties
-Простой путь к указанию своих конфигураций файла логирования.
+LoggerFactory - класс пакета org.slf4j, который используется для создания регистраторов для различных API-интерфейсов
+журналирования, таких как log4j, jul, logback.
+
+
+
+
+
 
 
 
