@@ -4,7 +4,6 @@ public class Canvas {
 
     private int width;
     private int height;
-
     private char[][] matrix;
 
     public Canvas(int width,int height) {

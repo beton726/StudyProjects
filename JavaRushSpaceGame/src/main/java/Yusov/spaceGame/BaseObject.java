@@ -2,9 +2,12 @@ package Yusov.spaceGame;
 
 public abstract class BaseObject {
 
-    private double x;
-    private double y;
-    private double radius;
+    // Координаты
+    protected double x;
+    protected double y;
+    // Радиус объекта
+    protected double radius;
+    // Состояние объекта - жив или мёртв
     private boolean isAlive;
 
     public BaseObject(double x, double y, double radius) {
