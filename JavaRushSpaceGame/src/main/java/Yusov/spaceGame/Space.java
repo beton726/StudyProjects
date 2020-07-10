@@ -1,6 +1,5 @@
 package Yusov.spaceGame;
 
-import Yusov.spaceGame.drawObjects.Canvas;
 import Yusov.spaceGame.flyObjects.SpaceShip;
 import Yusov.spaceGame.flyObjects.Ufo;
 import Yusov.spaceGame.weapons.Bomb;
@@ -8,8 +7,12 @@ import Yusov.spaceGame.weapons.Rocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Space {
+
+    private static final Logger log = LoggerFactory.getLogger(Space.class.getName());
 
     private int width;
     private int height;
@@ -63,14 +66,10 @@ public class Space {
     public static void sleep(int ms) {
 
     }
+    // Создание игры
+    public static Space game;
 
     public static void main(String[] args) {
-        char[][] arrChar = new char[][]{{'a','t'},{'b','t'},{'c','f'},{'d','f'}};
-        Canvas canvas = new Canvas();
-
-        canvas.setMatrix(arrChar);
-
-        System.out.println(canvas.getMatrix()[0][1]);
 
 
     }
