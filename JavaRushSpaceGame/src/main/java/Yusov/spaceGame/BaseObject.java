@@ -44,17 +44,34 @@ public abstract class BaseObject {
     public boolean isAlive() {
         return isAlive;
     }
-
+    /**
+     * Метод рисует свой объект на "канвасе".
+     */
     public void draw() {
 
     }
-
+    /**
+     * Двигаем себя на один ход.
+     */
     public void move() {
 
+    }
+    /**
+     * Проверяем - не выходит ли (x,y) за границы.
+     */
+    public void checkBorders(double minx, double maxx, double miny, double maxy) {
+        if(x < minx) x = minx;
+        if(x > maxx) x = maxx;
+        if(y < miny) y = miny;
+        if(y > maxy) y = maxy;
     }
 
     public void die() {
         this.isAlive = false;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     public boolean isIntersect(BaseObject o) {

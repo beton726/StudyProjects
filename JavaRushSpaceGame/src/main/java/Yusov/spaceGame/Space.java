@@ -32,27 +32,27 @@ public class Space {
     }
 
     public SpaceShip getShip() {
-        return ship;
+        return this.ship;
     }
 
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public List<Ufo> getUfos() {
-        return ufos;
+        return this.ufos;
     }
 
     public List<Rocket> getRockets() {
-        return rockets;
+        return this.rockets;
     }
 
     public List<Bomb> getBombs() {
-        return bombs;
+        return this.bombs;
     }
 
     public static void run() {
@@ -66,11 +66,35 @@ public class Space {
     public static void sleep(int ms) {
 
     }
+
+    public List<BaseObject> getAllItems() {
+        List<BaseObject> allList = new ArrayList<BaseObject>();
+
+        allList.addAll(ufos);
+        allList.addAll(rockets);
+        allList.addAll(bombs);
+        allList.add(ship);
+
+        return allList;
+    }
+
+    public void moveAllItems() {
+        for (BaseObject name : getAllItems()) {
+            name.move();
+        }
+    }
+
+    public void createUfo() {
+        if(ufos.isEmpty()) {
+//            Ufo ufo = new Ufo(,0);
+
+        }
+    }
+
     // Создание игры
     public static Space game;
 
     public static void main(String[] args) {
 
-
     }
-}
+} 
