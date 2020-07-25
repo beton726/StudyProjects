@@ -8,11 +8,13 @@ public class Bomb extends BaseObject {
         super(x, y, 1);
     }
     // Двигаем бомбу вниз
+    @Override
     public void move() {
         y++;
     }
     // Отрисовываем бомбу на хосте
+    @Override
     public void draw(Canvas canvas) {
-        canvas.setPoint(getX(),getY(),'B');
+        canvas.setPoint(x,y,'B');
     }
 }

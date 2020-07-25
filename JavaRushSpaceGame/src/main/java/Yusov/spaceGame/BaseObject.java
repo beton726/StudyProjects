@@ -1,5 +1,7 @@
 package Yusov.spaceGame;
 
+import Yusov.spaceGame.drawObjects.Canvas;
+
 public abstract class BaseObject {
 
     // Координаты
@@ -47,7 +49,7 @@ public abstract class BaseObject {
     /**
      * Метод рисует свой объект на "канвасе".
      */
-    public void draw() {
+    public void draw(Canvas canvas) {
 
     }
     /**
@@ -75,11 +77,11 @@ public abstract class BaseObject {
     }
 
     public boolean isIntersect(BaseObject o) {
-        if(Math.sqrt(Math.pow((o.getX()-this.x),2) + Math.pow((o.getY()-this.y),2)) < Math.max(this.getRadius(), o.getRadius())) {
-            return true;
-        } else {
-            return false;
-        }
+        double dx = x - o.x;
+        double dy = y - o.y;
+        double destination = Math.sqrt(dx * dx + dy * dy);
+        double destionation2 = Math.max(radius, o.radius);
+        return destination < destionation2;
     }
 
 }

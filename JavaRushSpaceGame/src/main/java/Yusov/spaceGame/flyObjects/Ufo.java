@@ -9,7 +9,14 @@ public class Ufo extends BaseObject {
 
     private double dx = Math.random()*2-1; // -1...1
     private double dy = Math.random()*2-1; // -1...1
-    private static int[][] matrix = new int[][]{};
+    // Картинка для отрисовки
+    private static int[][] matrix = {
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0},
+            {0, 0, 0, 0, 0},
+    };
 
     public Ufo(double x, double y) {
         super(x, y, 3);
@@ -19,11 +26,15 @@ public class Ufo extends BaseObject {
         canvas.drawMatrix(x - radius + 1, y - radius + 1, matrix, 'U');
     }
 
+    @Override
     public void move() {
+        double dx = Math.random() * 2 - 1;
+        double dy = Math.random() * 2 - 1;
+
         x += dx;
         y += dy;
 
-        checkBorders(0, Space.game.getHeight(), 0, Space.game.getWidth()/2);
+        checkBorders(radius, Space.game.getWidth() - radius + 1, 1, Space.game.getHeight() / 2);
 
         if(y <= Space.game.getHeight())
             y = y+1;
@@ -34,7 +45,7 @@ public class Ufo extends BaseObject {
     }
 
     public void fire() {
-        Bomb bomb = new Bomb(x,y+radius);
+        Bomb bomb = new Bomb(x,y+3);
         Space.game.getBombs().add(bomb);
     }
 }

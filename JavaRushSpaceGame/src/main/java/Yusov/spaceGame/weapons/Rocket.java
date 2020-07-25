@@ -8,11 +8,13 @@ public class Rocket extends BaseObject {
         super(x, y, 1);
     }
     // Двигаем ракету вниз
+    @Override
     public void move() {
         y--;
     }
     // Отрисовываем ракету на хосте
+    @Override
     public void draw(Canvas canvas) {
-        canvas.setPoint(getX(),getY(),'R');
+        canvas.setPoint(x,y,'R');
     }
 }

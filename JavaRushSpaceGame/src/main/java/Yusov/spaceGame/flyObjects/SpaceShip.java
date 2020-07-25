@@ -8,7 +8,14 @@ import Yusov.spaceGame.weapons.Rocket;
 public class SpaceShip extends BaseObject {
 
     private double dx = 0;
-    private static int[][] matrix = new int[][]{};
+    // Картинка корабля для отрисовки
+    private static int[][] matrix = {
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 1, 0, 0},
+            {1, 0, 1, 0, 1},
+            {1, 1, 1, 1, 1},
+    };
 
     public SpaceShip(double x, double y) {
         super(x, y, 3);
@@ -23,8 +30,8 @@ public class SpaceShip extends BaseObject {
     }
 
     public void move() {
-        checkBorders(0, Space.game.getHeight(), 0, Space.game.getWidth());
         x += dx;
+        checkBorders(radius, Space.game.getWidth() - radius + 1, 1, Space.game.getHeight() + 1);
     }
     // Рисует корабль
     public void draw(Canvas canvas) {
@@ -32,8 +39,8 @@ public class SpaceShip extends BaseObject {
     }
     // Корабль стреляет
     public void fire() {
-        Rocket firstRocket = new Rocket(x, y-2);
-        Rocket secondRocket = new Rocket(x, y+2);
+        Rocket firstRocket = new Rocket(x-2 , y);
+        Rocket secondRocket = new Rocket(x+2, y);
         Space.game.getRockets().add(firstRocket);
         Space.game.getRockets().add(secondRocket);
     }
