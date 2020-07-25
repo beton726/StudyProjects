@@ -7,6 +7,8 @@ import Yusov.spaceGame.weapons.Rocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,15 +88,30 @@ public class Space {
 
     public void createUfo() {
         if(ufos.isEmpty()) {
-//            Ufo ufo = new Ufo(,0);
-
+            Ufo ufo = new Ufo(0,0);
         }
+    }
+
+    public void checkBombs() {
+        for (Bomb nameBomb : bombs) {
+            nameBomb.isIntersect(ship);
+        }
+    }
+
+    public void checkRockets() {
+
+    }
+
+    public void removeDead() {
+
     }
 
     // Создание игры
     public static Space game;
 
     public static void main(String[] args) {
+
+
 
     }
 } 
