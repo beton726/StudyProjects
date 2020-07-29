@@ -8,17 +8,9 @@ import Yusov.spaceGame.weapons.Rocket;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-
-import jdk.nashorn.internal.ir.CallNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Space {
-
-    private static final Logger log = LoggerFactory.getLogger(Space.class.getName());
 
     // Создание игры
     public static Space game;
