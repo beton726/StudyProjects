@@ -1,6 +1,6 @@
 package dev.yusov;
 
-public class Solution {
+public class SolutionForTest {
     public static void main(String[] args) {
 
     }
