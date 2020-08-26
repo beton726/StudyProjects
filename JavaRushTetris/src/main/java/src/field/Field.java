@@ -2,6 +2,8 @@ package src.field;
 
 import src.game.Tetris;
 
+import java.util.ArrayList;
+
 /* *
  * Хранение данных о текущих занятых и свободных клетках на поле игры. (Поле)
  * */
@@ -78,18 +80,24 @@ public class Field {
         System.out.println();
     }
 
-    public void removeFullLines() {
-        for (int i = 0; i < height; i++) {
-            int count = 0;
-            for (int j = 0; j < width; j++) {
-                if(matrix[i][j] == 1)
-                    count++;
+    public void removeFullLines()
+    {
+        ArrayList<int[]> list = new ArrayList<int[]>();
+        for (int i = 0; i <getHeight(); i++)
+        {
+            int count=0;
+            for (int j = 0; j <getWidth() ; j++)
+            {
+                count+=matrix[i][j];
             }
-            if(count == width)
-                matrix[i] = null;
-                matrix[i+1] = matrix[i];
-                matrix[i] = new int[width];
+            if(count!=width)list.add(matrix[i]);
         }
+        //Добавляем недостающие строки в начало списка.
+        while (list.size() < height){
+            list.add(0,new int[width]);
+        }
+        //Преобразуем список обратно в матрицу
+        matrix = list.toArray(new int[height][width]);
     }
     /**
      * Метод возвращает значение, которое содержится в матрице с координатами (x,y)
