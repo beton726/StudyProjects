@@ -15,6 +15,7 @@ public class Aggregator {
         Provider provider = new Provider(strategy);
 
         Controller controller = new Controller(provider);
-        System.out.println(controller.toString());
+
+        controller.scan();
     }
 }
