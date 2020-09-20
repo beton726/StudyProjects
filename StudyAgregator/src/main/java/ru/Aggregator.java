@@ -11,6 +11,8 @@ import ru.model.Strategy;
 * */
 public class Aggregator {
     public static void main(String[] args) {
+
+
         Strategy strategy = null;
         Provider provider = new Provider(strategy);
 
