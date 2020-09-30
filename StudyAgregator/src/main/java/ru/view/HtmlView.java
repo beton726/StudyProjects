@@ -1,9 +1,12 @@
 package ru.view;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import ru.controller.Controller;
 import vo.Vacancy;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class HtmlView implements View {
@@ -30,12 +33,49 @@ public class HtmlView implements View {
         controller.onCitySelect("Odessa");
     }
 
-    private String getUpdatedFileContent(List<Vacancy> vacancies) {
-        return null;
+    private String getUpdatedFileContent(List<Vacancy> vacancies) throws IOException {
+        Document document;
+
+        try {
+            document = getDocument();
+            Element element = document.getElementsByClass("template").first();
+            // Элемент - шаблон, для добавления новой строки в таблицу вакансий.
+            Element template = element.clone();
+            template.removeAttr("style");
+            template.removeClass("template");
+            document.select("tr[class=vacancy]").remove();
+
+            for (Vacancy vac : vacancies) {
+
+                Element element1 = template.clone();
+                element1.getElementsByClass("city").first().text(vac.getCity());
+                element1.getElementsByClass("companyName").first().text(vac.getCompanyName());
+                element1.getElementsByClass("salary").first().text(vac.getSalary());
+
+                Element linkElem = element1.getElementsByTag("a").first();
+                linkElem.text(vac.getTitle());
+                linkElem.attr("href",vac.getUrl());
+
+                element.before(element1.outerHtml());
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Some exception occurred";
+        }
+
+        return document.html();
     }
 
-    private void updateFile(String fileName) {
+    private void updateFile(String fileName) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(fileName);
+        writer.close();
+    }
 
+    protected Document getDocument() throws IOException {
+        return Jsoup.parse(new File(filePath), "UTF-8");
     }
 
 }
