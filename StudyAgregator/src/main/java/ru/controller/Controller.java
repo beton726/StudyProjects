@@ -1,5 +1,6 @@
 package ru.controller;
 
+import ru.model.Model;
 import ru.model.Provider;
 import vo.Vacancy;
 
@@ -9,26 +10,17 @@ import java.util.List;
 
 public class Controller {
 
-    private Provider[] providers;
+    private Model model;
 
-    public Controller(Provider... providers) {
-        this.providers = providers;
-        if(providers.length == 0)
+    public Controller(Model model) {
+        if(model == null)
             throw new IllegalArgumentException();
+        this.model = model;
     }
 
-    @Override
-    public String toString() {
-        return "Controller{" +
-                "providers=" + Arrays.toString(providers) +
-                '}';
+    public void onCitySelect(String cityName) {
+        System.out.println("CONTROLLER onCitySelect");
+        model.selectCity(cityName);
     }
 
-    public void scan() {
-        List<Vacancy> vacancies = new ArrayList<Vacancy>();
-        for (Provider name : providers) {
-            vacancies.addAll(name.getJavaVacancies(null));
-        }
-        System.out.println(vacancies.size());
-    }
 }
