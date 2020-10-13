@@ -1,10 +1,7 @@
 package ru;
 
 import ru.controller.Controller;
-import ru.model.HHStrategy;
-import ru.model.Model;
-import ru.model.Provider;
-import ru.model.Strategy;
+import ru.model.*;
 import ru.view.HtmlView;
 import ru.view.View;
 
@@ -16,19 +13,12 @@ import ru.view.View;
 public class Aggregator {
     public static void main(String[] args) {
 
-        Strategy strategy = new HHStrategy();
-
-        Provider provider = new Provider(strategy);
-
-        HtmlView view = new HtmlView();
-
-        Model model = new Model(view, provider);
-
+        View view = new HtmlView();
+        Provider[] providers = {new Provider(new HHStrategy() {}),new Provider(new MoikrugStrategy() {})};
+        Model model = new Model(view,providers);
         Controller controller = new Controller(model);
-
         view.setController(controller);
 
-        view.userCitySelectEmulationMethod();
 
     }
 }

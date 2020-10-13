@@ -47,7 +47,7 @@ public class HHStrategy implements Strategy {
         return list;
     }
 
-    Document getDocument(String searchString, int page) throws IOException {
+    protected Document getDocument(String searchString, int page) throws IOException {
         return Jsoup.connect(String.format(URL_FORMAT, searchString, page))
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)

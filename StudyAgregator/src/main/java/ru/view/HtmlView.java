@@ -12,7 +12,7 @@ import java.util.List;
 public class HtmlView implements View {
 
     private Controller controller;
-    private final String filePath = "./" + this.getClass().getPackage().getName().replace('.','/') + "/vacancies.html";
+    private final String filePath = this.getClass().getPackage().getName().replace('.','/') + "/vacancies.html";
 
     @Override
     public void update(List<Vacancy> vacancies) {
