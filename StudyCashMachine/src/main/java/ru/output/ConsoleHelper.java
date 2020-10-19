@@ -21,7 +21,7 @@ public class ConsoleHelper {
         return null;
     }
     // Считаывется код валюты
-    public String askCurrencyCode() {
+    public static String askCurrencyCode() {
         while(true) {
             System.out.println("Введите валюту.");
             String valute = readString();
@@ -32,13 +32,20 @@ public class ConsoleHelper {
         }
     }
     // Считывается номинал и количество банкнот
-    public String [] getValidTwoDigits(String currencyCode) {
-        System.out.println("Введите два целых числа.");
-//        String par = readString(); // Номинал
-//        String countMoney = readString(); // Количество банкнот
-        String[] numb = readString().split(" ");
-        // Как то обработать ввод чисел
-        System.out.println(numb[0] + " " + numb[1]);
-        return null;
+    public static String[] getValidTwoDigits(String currencyCode) {
+            while(true) {
+                try {
+                    System.out.println("Введите два целых числа.");
+                    String[] arr = readString().split(" ");
+                    if(Integer.parseInt(arr[0]) > 0 && Integer.parseInt(arr[1]) > 0 && arr.length == 2) {
+                        return arr;
+                    } else {
+                        System.out.println("Введены не корректные данные.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Введены не корректные данные.");
+                    continue;
+                }
+            }
     }
 }
