@@ -17,7 +17,7 @@ public class CurrencyManipulator {
     public String getCurrencyCode() {
         return currencyCode;
     }
-    // Добавление введённых номинала и количество банкнот
+    // Добавление введённых номинала(denomination) и количество банкнот(count)
     public void addAmount(int denomination, int count) {
         if(denominations.containsKey(denomination)) {
             denominations.put(denomination, denominations.get(denomination) + count);
@@ -25,4 +25,13 @@ public class CurrencyManipulator {
             denominations.put(denomination, count);
         }
     }
+
+    public int getTotalAmount() {
+        int countCash = 0;
+        for (Map.Entry<Integer, Integer> entry : denominations.entrySet()) {
+            countCash += entry.getKey() * entry.getValue();
+        }
+        return countCash;
+    }
+
 }
