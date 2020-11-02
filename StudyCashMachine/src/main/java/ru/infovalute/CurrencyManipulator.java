@@ -25,7 +25,7 @@ public class CurrencyManipulator {
             denominations.put(denomination, count);
         }
     }
-
+    // Подсчёт общей суммы денег для выбранной валюты
     public int getTotalAmount() {
         int countCash = 0;
         for (Map.Entry<Integer, Integer> entry : denominations.entrySet()) {
