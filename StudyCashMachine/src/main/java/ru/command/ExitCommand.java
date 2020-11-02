@@ -1,6 +1,6 @@
 package ru.command;
 
-public class ExitCommand implements Command {
+class ExitCommand implements Command {
     public void execute() {
 
     }

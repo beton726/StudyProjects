@@ -1,6 +1,6 @@
 package ru.command;
 
-public class WithdrawCommand implements Command {
+class WithdrawCommand implements Command {
     public void execute() {
 
     }
