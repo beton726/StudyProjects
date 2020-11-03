@@ -1,6 +1,6 @@
 package dev.yusov.patterns.command;
 
-// Reciver
+// Receiver
 public class Comp {
     public void start(){
         System.out.println("Start");
