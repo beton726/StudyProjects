@@ -17,7 +17,7 @@ public class CurrencyManipulatorFactory {
             return map.get(currencyCode);
         } else {
             CurrencyManipulator currencyManipulator = new CurrencyManipulator(currencyCode);
-            map.put(currencyManipulator.getCurrencyCode(), currencyManipulator);
+            map.put(currencyCode, currencyManipulator);
             return map.get(currencyCode);
         }
     }

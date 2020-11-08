@@ -8,10 +8,11 @@ public class CurrencyManipulator {
     // Код валюты
     private String currencyCode;
     // Map<номинал,количество>
-    private static Map<Integer, Integer> denominations = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> denominations;
 
     public CurrencyManipulator(String currencyCode) {
         this.currencyCode = currencyCode;
+        denominations = new HashMap<Integer, Integer>();
     }
 
     public String getCurrencyCode() {
@@ -34,9 +35,8 @@ public class CurrencyManipulator {
         return countCash;
     }
 
-    public static boolean hasMoney() {
-
-        return true;
+    public boolean hasMoney() {
+        return getTotalAmount() > 0;
     }
 
 }
