@@ -38,5 +38,15 @@ public class CurrencyManipulator {
     public boolean hasMoney() {
         return getTotalAmount() > 0;
     }
+    // Проверка, достаточно ли средств.
+    public boolean isAmountAvailable(int expectedAmount) {
+        return getTotalAmount() >= expectedAmount;
+    }
+    // Списание со счёта
+    public Map<Integer, Integer> withdrawAmount(int expectedAmount) {
+        Map<Integer,Integer> maps = new HashMap<Integer, Integer>();
+
+        return maps;
+    }
 
 }
