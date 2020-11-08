@@ -1,7 +1,6 @@
 package ru.infovalute;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +17,17 @@ public class CurrencyManipulatorFactory {
 
     public static Collection<CurrencyManipulator> getAllCurrencyManipulators() {
         return map.values();
+    }
+
+    public static boolean hasMoney() {
+        if(map.isEmpty())
+            return false;
+        // Возвращает true, если общая сумма данной валюты > 0
+
+
+
+
+        return true;
     }
 
 }

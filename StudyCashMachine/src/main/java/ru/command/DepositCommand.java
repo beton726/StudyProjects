@@ -15,5 +15,6 @@ class DepositCommand implements Command {
         currencyManipulator.addAmount(Integer.parseInt(digits[0]), Integer.parseInt(digits[1]));
         // В объекте currencyManipulator имеется два числа и валюта, которые можно вставить
         // в класс CurrencyManipulatorFactory в Map<String, CurrencyManipulator> map
+
     }
 }
