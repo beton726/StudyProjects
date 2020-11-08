@@ -20,14 +20,7 @@ public class CurrencyManipulatorFactory {
     }
 
     public static boolean hasMoney() {
-        if(map.isEmpty())
-            return false;
-        // Возвращает true, если общая сумма данной валюты > 0
-
-
-
-
-        return true;
+        return !map.isEmpty();
     }
 
 }
