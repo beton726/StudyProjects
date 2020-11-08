@@ -5,7 +5,7 @@ import ru.Operation;
 import java.util.HashMap;
 import java.util.Map;
 
-class CommandExecutor {
+public class CommandExecutor {
 
     private static final Map<Operation, Command> allKnownCommandsMap = new HashMap<Operation, Command>();
 
@@ -16,9 +16,7 @@ class CommandExecutor {
         allKnownCommandsMap.put(Operation.EXIT, new ExitCommand());
     }
 
-    private CommandExecutor() {
-
-    }
+    private CommandExecutor() {}
 
     public static final void execute(Operation operation) {
         allKnownCommandsMap.get(operation).execute();
