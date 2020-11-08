@@ -20,7 +20,7 @@ class WithdrawCommand implements Command {
 
                 if(currencyManipulator.isAmountAvailable(Integer.parseInt(amountWithdraw))) {
                     flag = false;
-
+                    currencyManipulator.withdrawAmount(Integer.parseInt(amountWithdraw));
 
                 } else {
                     ConsoleHelper.writeMessage("Недостаточно денег для выдачи.");

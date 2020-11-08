@@ -2,6 +2,7 @@ package ru.infovalute;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class CurrencyManipulator {
 
@@ -12,7 +13,7 @@ public class CurrencyManipulator {
 
     public CurrencyManipulator(String currencyCode) {
         this.currencyCode = currencyCode;
-        denominations = new HashMap<Integer, Integer>();
+        denominations = new TreeMap<Integer, Integer>();
     }
 
     public String getCurrencyCode() {
@@ -44,9 +45,23 @@ public class CurrencyManipulator {
     }
     // Списание со счёта
     public Map<Integer, Integer> withdrawAmount(int expectedAmount) {
-        Map<Integer,Integer> maps = new HashMap<Integer, Integer>();
+        // Метод возвращает минимальное количество банкнот, которыми набирается запрашиваемая сумма.
+        // Если есть несколько вариантов, то использовать тот, в котором максимальное количество
+        // банкнот высшего номинала.
+        // Если для суммы 600 результат - три банкноты: 500 + 50 + 50 = 200 + 200 + 200, то выдать первый вариант.
+        Map<Integer,Integer> temporarilyMap = new HashMap<Integer, Integer>();
+        // Копируем map
+        temporarilyMap.putAll(denominations);
 
-        return maps;
+        // Делаем манипуляции
+
+
+
+
+
+        denominations.clear();
+        denominations.putAll(temporarilyMap);
+        return temporarilyMap;
     }
 
 }
