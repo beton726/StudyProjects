@@ -13,12 +13,10 @@ class InfoCommand implements Command {
             System.out.println("No money available.");
         } else {
             // Возвращает true, если общая сумма данной валюты > 0
+            // Вывести для каждого манипулятора "код валюты - общая сумма денег для выбранной валюты".
+            // Если денег нет в банкомате или
             CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
-            // По валюте достаём номинал и их количество
-            if(currencyManipulator.getTotalAmount() > 0) {
-                System.out.println(currencyManipulator.getCurrencyCode() + " - " + currencyManipulator.getTotalAmount());
-            } else
-                System.out.println("No money available.");
+
         }
     }
 }

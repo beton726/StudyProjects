@@ -12,8 +12,11 @@ public class CashMachine {
         Locale.setDefault(Locale.ENGLISH);
         Operation operation;
         do {
+
             // DEPOSIT
             operation = ConsoleHelper.askOperation(); // Вводим номер операции
+            if(operation == Operation.EXIT)
+                break;
             CommandExecutor.execute(operation);
             // INFO
             operation = ConsoleHelper.askOperation(); // Вводим номер операции
