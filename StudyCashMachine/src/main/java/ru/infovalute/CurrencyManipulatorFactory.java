@@ -10,17 +10,20 @@ public class CurrencyManipulatorFactory {
 
     private CurrencyManipulatorFactory(){
     }
-
+    // Метод создаёт нужный манипулятор или возвращает ранее существующий
     public static CurrencyManipulator getManipulatorByCurrencyCode(String currencyCode) {
-        return map.get(currencyCode.toUpperCase());
+        currencyCode = currencyCode.toUpperCase();
+        if(map.containsKey(currencyCode)) {
+            return map.get(currencyCode);
+        } else {
+            CurrencyManipulator currencyManipulator = new CurrencyManipulator(currencyCode);
+            map.put(currencyManipulator.getCurrencyCode(), currencyManipulator);
+            return map.get(currencyCode);
+        }
     }
 
     public static Collection<CurrencyManipulator> getAllCurrencyManipulators() {
         return map.values();
-    }
-
-    public static boolean hasMoney() {
-        return !map.isEmpty();
     }
 
 }

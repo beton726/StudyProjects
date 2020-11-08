@@ -34,4 +34,9 @@ public class CurrencyManipulator {
         return countCash;
     }
 
+    public static boolean hasMoney() {
+
+        return true;
+    }
+
 }
