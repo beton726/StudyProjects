@@ -53,8 +53,11 @@ public class CurrencyManipulator {
         // Копируем map
         temporarilyMap.putAll(denominations);
 
-        // Делаем манипуляции
 
+        System.out.println("Ключи: " + temporarilyMap.keySet() + " Значения: " + temporarilyMap.values());
+        // Количество купюр
+        int x = 0;
+        System.out.println("Всего купюр с разным номиналом: " + denominations.size());
 
 
 
