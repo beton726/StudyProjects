@@ -1,10 +1,11 @@
 package  ru.command;
 
+import ru.exception.InterruptOperationException;
 import ru.infovalute.CurrencyManipulatorFactory;
 import ru.output.ConsoleHelper;
 
 class DepositCommand implements Command {
-    public void execute() {
+    public void execute() throws InterruptOperationException {
         // Вводим валюту
         String code = ConsoleHelper.askCurrencyCode();
         // Вводим два числа, эти числа возвращаются в массив digits

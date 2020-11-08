@@ -1,7 +1,9 @@
 package ru.command;
 
+import ru.exception.InterruptOperationException;
+
 class WithdrawCommand implements Command {
-    public void execute() {
+    public void execute() throws InterruptOperationException {
 
     }
 }

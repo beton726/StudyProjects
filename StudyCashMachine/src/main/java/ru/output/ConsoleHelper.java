@@ -1,6 +1,7 @@
 package ru.output;
 
 import ru.Operation;
+import ru.exception.InterruptOperationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,16 +15,18 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public static String readString() {
+    public static String readString() throws InterruptOperationException {
         try {
             String readWord = bis.readLine();
+            if(readWord.equalsIgnoreCase("exit"))
+                throw new InterruptOperationException();
             return readWord;
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
         return null;
     }
     // Считаывется код валюты
-    public static String askCurrencyCode() {
+    public static String askCurrencyCode() throws InterruptOperationException {
         while(true) {
             writeMessage("Введите валюту.");
             String valute = readString();
@@ -34,7 +37,7 @@ public class ConsoleHelper {
         }
     }
     // Считывается номинал и количество банкнот
-    public static String[] getValidTwoDigits(String currencyCode) {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         while(true) {
             try {
                 writeMessage("Введите два целых числа.");
@@ -51,7 +54,7 @@ public class ConsoleHelper {
         }
     }
 
-    public static Operation askOperation() {
+    public static Operation askOperation() throws InterruptOperationException {
         while(true) {
             try {
                 writeMessage("Какую операцию хотите ввести?");
@@ -63,4 +66,5 @@ public class ConsoleHelper {
             }
         }
     }
+
 }

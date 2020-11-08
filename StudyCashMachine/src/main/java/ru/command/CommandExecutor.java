@@ -1,6 +1,7 @@
 package ru.command;
 
 import ru.Operation;
+import ru.exception.InterruptOperationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class CommandExecutor {
 
     private CommandExecutor() {}
 
-    public static final void execute(Operation operation) {
+    public static final void execute(Operation operation) throws InterruptOperationException {
         allKnownCommandsMap.get(operation).execute();
     }
 }
