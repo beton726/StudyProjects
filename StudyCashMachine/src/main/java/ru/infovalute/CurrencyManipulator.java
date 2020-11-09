@@ -1,5 +1,6 @@
 package ru.infovalute;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,7 +14,7 @@ public class CurrencyManipulator {
 
     public CurrencyManipulator(String currencyCode) {
         this.currencyCode = currencyCode;
-        denominations = new TreeMap<Integer, Integer>();
+        denominations = new TreeMap<Integer, Integer>(Collections.reverseOrder());
     }
 
     public String getCurrencyCode() {
@@ -55,11 +56,38 @@ public class CurrencyManipulator {
 
 
         System.out.println("Ключи: " + temporarilyMap.keySet() + " Значения: " + temporarilyMap.values());
-        // Количество купюр
-        int x = 0;
-        System.out.println("Всего купюр с разным номиналом: " + denominations.size());
 
+        Integer[] a = temporarilyMap.keySet().toArray(new Integer[0]);  // Купюры с разными номиналами
+        int INF = 1000000000;                                           // Значение константы бесконечность
+        int[] F = new int[expectedAmount+1];
+        int k = a.length;                               // Всего номиналов
+        F[0] = 0;
 
+        for(int m = 1; m <= expectedAmount; m++) {      // заполняем массив F
+            F[m]=INF;                                   // помечаем, что сумму m выдать нельзя
+            for(int i = 0; i < k; i++) {                // перебираем все номиналы банкнот
+                if(m >= a[i] && F[m-a[i]]+1 < F[m])
+                    F[m] = F[m-a[i]]+1;                 // изменяем значение F[m], если нашли
+            }
+        }
+
+        int minMoney = F[F.length-1];
+        System.out.println("Минимальное количество банкнот: " + minMoney);
+
+        if(F[expectedAmount] == INF) {
+            System.out.println("Требуемую сумму выдать невозможно.");
+        } else {
+            while (expectedAmount > 0) {
+                System.out.print("1");
+                for (int j : a) {
+                    if (F[expectedAmount - j] == F[expectedAmount] - 1) {
+                        System.out.println(j);
+                        expectedAmount -= j;
+                        break;
+                    }
+                }
+            }
+        }
 
 
         denominations.clear();
