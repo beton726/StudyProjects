@@ -1,6 +1,7 @@
 package ru.command;
 
 import ru.exception.InterruptOperationException;
+import ru.exception.NotEnoughMoneyException;
 import ru.infovalute.CurrencyManipulator;
 import ru.infovalute.CurrencyManipulatorFactory;
 import ru.output.ConsoleHelper;
@@ -29,6 +30,8 @@ class WithdrawCommand implements Command {
 
             } catch (NumberFormatException e) {
                 ConsoleHelper.writeMessage("Введены не корректные данные.");
+            } catch (NotEnoughMoneyException e) {
+                e.printStackTrace();
             }
 
 

@@ -1,9 +1,8 @@
 package ru.infovalute;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import ru.exception.NotEnoughMoneyException;
+
+import java.util.*;
 
 public class CurrencyManipulator {
 
@@ -45,53 +44,44 @@ public class CurrencyManipulator {
         return getTotalAmount() >= expectedAmount;
     }
     // Списание со счёта
-    public Map<Integer, Integer> withdrawAmount(int expectedAmount) {
-        // Метод возвращает минимальное количество банкнот, которыми набирается запрашиваемая сумма.
-        // Если есть несколько вариантов, то использовать тот, в котором максимальное количество
-        // банкнот высшего номинала.
-        // Если для суммы 600 результат - три банкноты: 500 + 50 + 50 = 200 + 200 + 200, то выдать первый вариант.
-        Map<Integer,Integer> temporarilyMap = new HashMap<Integer, Integer>();
-        // Копируем map
-        temporarilyMap.putAll(denominations);
+    public Map<Integer, Integer> withdrawAmount(int expectedAmount) throws NotEnoughMoneyException {
+        // Взял готовое решение
+        HashMap<Integer, Integer> copyDenominations = new HashMap<Integer, Integer>(denominations);
 
+        ArrayList<Integer> keys = new ArrayList<Integer>(denominations.keySet());
 
-        System.out.println("Ключи: " + temporarilyMap.keySet() + " Значения: " + temporarilyMap.values());
+        Collections.sort(keys);
+        Collections.reverse(keys);
 
-        Integer[] a = temporarilyMap.keySet().toArray(new Integer[0]);  // Купюры с разными номиналами
-        int INF = 1000000000;                                           // Значение константы бесконечность
-        int[] F = new int[expectedAmount+1];
-        int k = a.length;                               // Всего номиналов
-        F[0] = 0;
-
-        for(int m = 1; m <= expectedAmount; m++) {      // заполняем массив F
-            F[m]=INF;                                   // помечаем, что сумму m выдать нельзя
-            for(int i = 0; i < k; i++) {                // перебираем все номиналы банкнот
-                if(m >= a[i] && F[m-a[i]]+1 < F[m])
-                    F[m] = F[m-a[i]]+1;                 // изменяем значение F[m], если нашли
+        TreeMap<Integer, Integer> temporarilyMap = new TreeMap<Integer, Integer>(new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
             }
-        }
+        });
 
-        int minMoney = F[F.length-1];
-        System.out.println("Минимальное количество банкнот: " + minMoney);
-
-        if(F[expectedAmount] == INF) {
-            System.out.println("Требуемую сумму выдать невозможно.");
-        } else {
-            while (expectedAmount > 0) {
-                System.out.print("1");
-                for (int j : a) {
-                    if (F[expectedAmount - j] == F[expectedAmount] - 1) {
-                        System.out.println(j);
-                        expectedAmount -= j;
-                        break;
-                    }
+        for (Integer denomination : keys) {
+            int value = copyDenominations.get(denomination);
+            while(true) {
+                if(expectedAmount < denomination || value == 0) {
+                    copyDenominations.put(denomination, value);
+                    break;
                 }
+                expectedAmount -= denomination;
+                value--;
+
+                if(temporarilyMap.containsKey(denomination))
+                    temporarilyMap.put(denomination, temporarilyMap.get(denomination) + 1);
+                else
+                    temporarilyMap.put(denomination, 1);
             }
         }
+        if (expectedAmount > 0)
+            throw new NotEnoughMoneyException();
+        else {
+            this.denominations.clear();
+            this.denominations.putAll(copyDenominations);
+        }
 
-
-        denominations.clear();
-        denominations.putAll(temporarilyMap);
         return temporarilyMap;
     }
 
