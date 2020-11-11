@@ -1,24 +1,27 @@
 package ru.command;
 
+import ru.CashMachine;
 import ru.exception.InterruptOperationException;
 import ru.output.ConsoleHelper;
 
-public class LoginCommand implements Command {
+import java.util.ResourceBundle;
 
-    private static final String cardNumber = "123456789012";
-    private static final String pin = "1234";
+public class LoginCommand implements Command {
+    private ResourceBundle validCreditCards =  ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.verifiedCards");
 
     public void execute() throws InterruptOperationException {
         while (true) {
             ConsoleHelper.writeMessage("Введите номер карты 12 цифр и пин 4 цифры.");
+
             String cardNumberEnter = ConsoleHelper.readString();
             String pinEnter = ConsoleHelper.readString();
             if(cardNumberEnter.length() != 12 || pinEnter.length() != 4)
                 ConsoleHelper.writeMessage("Введены не корректные данные.");
-            if(cardNumberEnter.equals(cardNumber) && pinEnter.equals(pin)) {
+            if(validCreditCards.containsKey(cardNumberEnter) && pinEnter.equals(validCreditCards.getString(cardNumberEnter))) {
                 ConsoleHelper.writeMessage("Верификация прошла успешно.");
                 break;
             }
+
         }
     }
 }
