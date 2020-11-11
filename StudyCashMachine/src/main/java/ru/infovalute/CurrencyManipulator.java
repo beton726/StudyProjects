@@ -60,14 +60,15 @@ public class CurrencyManipulator {
         });
 
         for (Integer denomination : keys) {
-            int value = copyDenominations.get(denomination);
+            int value = copyDenominations.get(denomination);        // Количество банкнот
             while(true) {
+                // Если сумма меньше текущего номинала или количество банкнот равно 0
                 if(expectedAmount < denomination || value == 0) {
                     copyDenominations.put(denomination, value);
                     break;
                 }
-                expectedAmount -= denomination;
-                value--;
+                expectedAmount -= denomination;                     // Уменьшаем сумму
+                value--;                                            // Уменьшаем количество банкнот
 
                 if(temporarilyMap.containsKey(denomination))
                     temporarilyMap.put(denomination, temporarilyMap.get(denomination) + 1);
