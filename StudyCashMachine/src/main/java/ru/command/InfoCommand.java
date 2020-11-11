@@ -1,22 +1,30 @@
 package ru.command;
 
+import ru.CashMachine;
 import ru.infovalute.CurrencyManipulator;
 import ru.infovalute.CurrencyManipulatorFactory;
 import ru.output.ConsoleHelper;
 
 import java.util.Collection;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 class InfoCommand implements Command {
-    public void execute() {
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.info_en");
 
-        if(CurrencyManipulatorFactory.getAllCurrencyManipulators().isEmpty()) {
-            ConsoleHelper.writeMessage("No money available.");
-        } else {
-            Collection<CurrencyManipulator> currencyManipulators = CurrencyManipulatorFactory.getAllCurrencyManipulators();
-            for (CurrencyManipulator word : currencyManipulators) {
-                if(word.hasMoney())
-                    ConsoleHelper.writeMessage(word.getCurrencyCode() + " - " + word.getTotalAmount());
+    public void execute() {
+        ConsoleHelper.writeMessage(res.getString("before"));
+        boolean money = false;
+        for (CurrencyManipulator cur : CurrencyManipulatorFactory.getAllCurrencyManipulators()) {
+            if (cur.hasMoney()) {
+                if (cur.getTotalAmount() > 0) {
+                    ConsoleHelper.writeMessage(cur.getCurrencyCode() + " - " + cur.getTotalAmount());
+                    money = true;
+                }
             }
+        }
+        if (!money) {
+            ConsoleHelper.writeMessage(res.getString("no.money"));
         }
     }
 }
