@@ -12,7 +12,7 @@ public enum Operation {
             throw new IllegalArgumentException();
         switch (i) {
             case 0:
-                return LOGIN;
+                throw new IllegalArgumentException();
             case 1:
                 return INFO;
             case 2:
@@ -22,7 +22,7 @@ public enum Operation {
             case 4:
                 return EXIT;
             default:
-                return null;
+                throw new IllegalArgumentException();
         }
     }
 }

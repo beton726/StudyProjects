@@ -5,8 +5,8 @@ import ru.output.ConsoleHelper;
 
 public class LoginCommand implements Command {
 
-    private static final long cardNumber = 123456789012L;
-    private static final int pin = 1234;
+    private static final String cardNumber = "123456789012";
+    private static final String pin = "1234";
 
     public void execute() throws InterruptOperationException {
         while (true) {
@@ -17,14 +17,8 @@ public class LoginCommand implements Command {
                 ConsoleHelper.writeMessage("Введены не корректные данные.");
             if(cardNumberEnter.equals(cardNumber) && pinEnter.equals(pin)) {
                 ConsoleHelper.writeMessage("Верификация прошла успешно.");
-
+                break;
             }
-
-
-
-
-
         }
     }
-
 }
