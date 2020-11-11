@@ -6,6 +6,8 @@ import ru.infovalute.CurrencyManipulator;
 import ru.infovalute.CurrencyManipulatorFactory;
 import ru.output.ConsoleHelper;
 
+import java.util.Map;
+
 class WithdrawCommand implements Command {
     public void execute() throws InterruptOperationException {
 
@@ -21,19 +23,22 @@ class WithdrawCommand implements Command {
 
                 if(currencyManipulator.isAmountAvailable(Integer.parseInt(amountWithdraw))) {
                     flag = false;
-                    currencyManipulator.withdrawAmount(Integer.parseInt(amountWithdraw));
+                    Map<Integer, Integer> denominations = currencyManipulator.withdrawAmount(Integer.parseInt(amountWithdraw));
 
+                    for (Integer item : denominations.keySet()) {
+                        ConsoleHelper.writeMessage("\t" + item + " - " + denominations.get(item));
+                    }
+
+                    ConsoleHelper.writeMessage(String.format("%d %s was withdrawn successfully", amountWithdraw, code));
                 } else {
                     ConsoleHelper.writeMessage("Недостаточно денег для выдачи.");
                 }
-
 
             } catch (NumberFormatException e) {
                 ConsoleHelper.writeMessage("Введены не корректные данные.");
             } catch (NotEnoughMoneyException e) {
                 e.printStackTrace();
             }
-
 
         }
 
