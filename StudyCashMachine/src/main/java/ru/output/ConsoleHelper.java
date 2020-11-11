@@ -59,6 +59,8 @@ public class ConsoleHelper {
             try {
                 writeMessage("Какую операцию хотите ввести?");
                 String operation = readString();
+                if(operation.equals("0"))
+                    throw new IllegalArgumentException();
                 return Operation.getAllowableOperationByOrdinal(Integer.parseInt(operation));
             } catch (IllegalArgumentException e) {
                 writeMessage("Введены не корректные данные. Попробуйте ещё раз.");
