@@ -5,8 +5,6 @@ import ru.infovalute.CurrencyManipulator;
 import ru.infovalute.CurrencyManipulatorFactory;
 import ru.output.ConsoleHelper;
 
-import java.util.Collection;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 class InfoCommand implements Command {
