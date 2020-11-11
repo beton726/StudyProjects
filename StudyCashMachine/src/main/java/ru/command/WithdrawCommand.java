@@ -39,8 +39,6 @@ class WithdrawCommand implements Command {
             } catch (NotEnoughMoneyException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 }
