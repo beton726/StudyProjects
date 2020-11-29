@@ -12,15 +12,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class LogParser implements IPQuery {
+public class LogParser extends BaseClass implements IPQuery {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
-    private static final String ipRegexp = "(\\d{0,3}\\.){3}\\d{0,3}";
-    private static final String dateRegexp = "((\\d{0,2}\\.){2}\\d{0,4} (\\d{0,2}\\:){2}\\d{0,2})";
 
     private static List<String> listLogs;
 
@@ -35,104 +30,12 @@ public class LogParser implements IPQuery {
 
     @Override
     public int getNumberOfUniqueIPs(Date after, Date before) {
-        Set<String> ipAddress = new HashSet<>();
-
-        if(after == null && before == null) {
-            // Обработать абсолютно все записи.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                ipAddress.add(letter[0]);
-            }
-        } else if(after == null) {
-            // Записи, у которых дата меньше или равна before.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() <= sdf.parse(sdf.format(before)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге after == null.");
-                    e.printStackTrace();
-                }
-            }
-        } else if(before == null) {
-            // Записи, у которых дата больше или равна after.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() >= sdf.parse(sdf.format(after)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге before == null.");
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            // Записи за данный период, включая даты after и before.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() >= sdf.parse(sdf.format(after)).getTime() && sdf.parse(letter[0]).getTime() <= sdf.parse(sdf.format(before)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге before == null.");
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return ipAddress.size();
+        return getAllIpList(after, before, listLogs).size();
     }
 
     @Override
     public Set<String> getUniqueIPs(Date after, Date before) {
-        Set<String> ipAddress = new HashSet<>();
-
-        if(after == null && before == null) {
-            // Обработать абсолютно все записи.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                ipAddress.add(letter[0]);
-            }
-        } else if(after == null) {
-            // Записи, у которых дата меньше или равна before.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() <= sdf.parse(sdf.format(before)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге after == null.");
-                    e.printStackTrace();
-                }
-            }
-        } else if(before == null) {
-            // Записи, у которых дата больше или равна after.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() >= sdf.parse(sdf.format(after)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге before == null.");
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            // Записи за данный период, включая даты after и before.
-            for (String word : listLogs) {
-                String[] letter = word.split("\t");
-                try {
-                    if(sdf.parse(letter[0]).getTime() >= sdf.parse(sdf.format(after)).getTime() && sdf.parse(letter[0]).getTime() <= sdf.parse(sdf.format(before)).getTime())
-                        ipAddress.add(letter[0]);
-                } catch (ParseException e) {
-                    System.out.println("Ошибка при парсинге before == null.");
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return ipAddress;
+        return getAllIpList(after, before, listLogs);
     }
 
     @Override
@@ -150,13 +53,28 @@ public class LogParser implements IPQuery {
 
     @Override
     public Set<String> getIPsForEvent(Event event, Date after, Date before) {
-        return null;
+        Set<String> ipAddress = new HashSet<>();
+
+        for (String word : listLogs) {
+            String[] letter = word.split("\t");
+            if(event.toString().equals(letter[3].split(" ")[0]))
+                ipAddress.add(letter[0]);
+        }
+
+        return ipAddress;
     }
 
     @Override
     public Set<String> getIPsForStatus(Status status, Date after, Date before) {
-        return null;
-    }
+        Set<String> ipAddress = new HashSet<>();
 
+        for (String word : listLogs) {
+            String[] letter = word.split("\t");
+            if(status.toString().equals(letter[4]))
+                ipAddress.add(letter[0]);
+        }
+
+        return ipAddress;
+    }
 
 }
