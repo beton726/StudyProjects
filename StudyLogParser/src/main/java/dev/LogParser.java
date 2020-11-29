@@ -15,13 +15,14 @@ import java.util.*;
 
 public class LogParser extends BaseClass implements IPQuery {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
     private static List<String> listLogs;
 
     public LogParser(Path logDir) {
         try {
-            listLogs = Files.readAllLines(logDir);
+            if(logDir.toString().endsWith(".log"))
+                listLogs = Files.readAllLines(logDir);
+            else
+                throw new IOException();
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла.");
             e.printStackTrace();
