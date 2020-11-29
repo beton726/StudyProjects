@@ -35,29 +35,52 @@ public class LogParser implements IPQuery {
 
     @Override
     public int getNumberOfUniqueIPs(Date after, Date before) {
-        // Количество уникальных IP адресов за выбранный период. Включая даты.
-        // Before - After
         Set<String> ipAddress = new HashSet<>();
-
-//        System.out.println(sdf.format(after));
-        System.out.println(sdf.format(before));
 
         if(after == null && before == null) {
             // Обработать абсолютно все записи.
             for (String word : listLogs) {
-                Matcher patternIp = Pattern.compile(ipRegexp).matcher(word);
-                if(patternIp.find()) {
-                    ipAddress.add(patternIp.group());
+                Matcher pattern = Pattern.compile(ipRegexp).matcher(word);
+                if(pattern.find()) {
+                    ipAddress.add(pattern.group());
                 }
             }
         } else if(after == null) {
             // Записи, у которых дата меньше или равна before.
-
-
+            for (String word : listLogs) {
+                Matcher pattern = Pattern.compile(dateRegexp).matcher(word);
+                try {
+                    if(pattern.find() && (sdf.parse(pattern.group()).getTime() <= sdf.parse(sdf.format(before)).getTime()))
+                        ipAddress.add(pattern.group());
+                } catch (ParseException e) {
+                    System.out.println("Ошибка при парсинге after == null.");
+                    e.printStackTrace();
+                }
+            }
         } else if(before == null) {
             // Записи, у которых дата больше или равна after.
+            for (String word : listLogs) {
+                Matcher pattern = Pattern.compile(dateRegexp).matcher(word);
+                try {
+                    if(pattern.find() && (sdf.parse(pattern.group()).getTime() >= sdf.parse(sdf.format(after)).getTime()))
+                        ipAddress.add(pattern.group());
+                } catch (ParseException e) {
+                    System.out.println("Ошибка при парсинге before == null.");
+                    e.printStackTrace();
+                }
+            }
         } else {
             // Записи за данный период, включая даты after и before.
+            for (String word : listLogs) {
+                Matcher pattern = Pattern.compile(dateRegexp).matcher(word);
+                try {
+                    if(pattern.find() && (sdf.parse(pattern.group()).getTime() >= sdf.parse(sdf.format(after)).getTime() && sdf.parse(pattern.group()).getTime() <= sdf.parse(sdf.format(before)).getTime()))
+                        ipAddress.add(pattern.group());
+                } catch (ParseException e) {
+                    System.out.println("Ошибка при парсинге before == null.");
+                    e.printStackTrace();
+                }
+            }
         }
 
         return ipAddress.size();
