@@ -9,41 +9,49 @@ import java.util.Set;
 
 abstract public class BaseClass {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-    public static Set<String> getAllIpList(Date after, Date before, List<String> listLogs, String user, Event event, Status status) {
+    private static int countEventsOfUser;
+
+    public static Set<String> getAllIpList(String query, Date after, Date before, List<String> listLogs, String user, Event event, Status status) {
         Set<String> ipAddress = new HashSet<>();
+        countEventsOfUser = 0;
 
         if(after == null && before == null) {
             // Обработать абсолютно все записи.
             for (String word : listLogs) {
                 String[] letter = word.split("\t");
-                checkNull(user, event, status, ipAddress, letter);
+                if(query.equals("IpQuery"))
+                    checkNullIpQuery(user, event, status, ipAddress, letter);
+                else if(query.equals("UserQuery"))
+                    checkNullUserQuery(user, ipAddress, letter);
             }
-        }
-
-        else if(after == null) {
+        } else if(after == null) {
             // Записи, у которых дата меньше или равна before.
             for (String word : listLogs) {
                 String[] letter = word.split("\t");
                 try {
                     if(sdf.parse(letter[2]).getTime() <= sdf.parse(sdf.format(before)).getTime()) {
-                        checkNull(user, event, status, ipAddress, letter);
+                        if(query.equals("IpQuery"))
+                            checkNullIpQuery(user, event, status, ipAddress, letter);
+                        else if(query.equals("UserQuery"))
+                            checkNullUserQuery(user, ipAddress, letter);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге after == null.");
                     e.printStackTrace();
                 }
             }
-        }
-
-        else if(before == null) {
+        } else if(before == null) {
             // Записи, у которых дата больше или равна after.
             for (String word : listLogs) {
                 String[] letter = word.split("\t");
                 try {
                     if(sdf.parse(letter[2]).getTime() >= sdf.parse(sdf.format(after)).getTime()) {
-                        checkNull(user, event, status, ipAddress, letter);
+                        if(query.equals("IpQuery"))
+                            checkNullIpQuery(user, event, status, ipAddress, letter);
+                        else if(query.equals("UserQuery"))
+                            checkNullUserQuery(user, ipAddress, letter);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -56,7 +64,10 @@ abstract public class BaseClass {
                 String[] letter = word.split("\t");
                 try {
                     if(sdf.parse(letter[2]).getTime() >= sdf.parse(sdf.format(after)).getTime() && sdf.parse(letter[2]).getTime() <= sdf.parse(sdf.format(before)).getTime()) {
-                        checkNull(user, event, status, ipAddress, letter);
+                        if(query.equals("IpQuery"))
+                            checkNullIpQuery(user, event, status, ipAddress, letter);
+                        else if(query.equals("UserQuery"))
+                            checkNullUserQuery(user, ipAddress, letter);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -68,7 +79,7 @@ abstract public class BaseClass {
         return ipAddress;
     }
 
-    private static void checkNull(String user, Event event, Status status, Set<String> ipAddress, String[] letter) {
+    private static void checkNullIpQuery(String user, Event event, Status status, Set<String> ipAddress, String[] letter) {
         if(user != null) {
             if(user.equals(letter[1]))
                 ipAddress.add(letter[0]);
@@ -81,6 +92,18 @@ abstract public class BaseClass {
         } else {
             ipAddress.add(letter[0]);
         }
+    }
+
+    private static void checkNullUserQuery(String user, Set<String> ipAddress, String[] letter) {
+        if(user != null) {
+            if(user.equals(letter[1])) {
+                ipAddress.add(String.valueOf(countEventsOfUser));
+                countEventsOfUser++;
+            }
+        } else {
+            ipAddress.add(letter[1]);
+        }
+
     }
 
 }

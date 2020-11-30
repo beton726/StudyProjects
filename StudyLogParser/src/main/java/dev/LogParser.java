@@ -1,6 +1,7 @@
 package dev;
 
 import dev.query.IPQuery;
+import dev.query.UserQuery;
 
 import java.io.*;
 import java.nio.file.DirectoryStream;
@@ -14,9 +15,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class LogParser extends BaseClass implements IPQuery {
+public class LogParser extends BaseClass implements IPQuery, UserQuery {
 
     private static List<String> listLogs = new ArrayList<>();
+
+    private static String IpQuery = "IpQuery";
+    private static String UserQuery = "UserQuery";
 
     public LogParser(Path logDir) {
 
@@ -43,27 +47,81 @@ public class LogParser extends BaseClass implements IPQuery {
 
     @Override
     public int getNumberOfUniqueIPs(Date after, Date before) {
-        return getAllIpList(after, before, listLogs, null, null, null).size();
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, null).size();
     }
 
     @Override
     public Set<String> getUniqueIPs(Date after, Date before) {
-        return getAllIpList(after, before, listLogs, null, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, null);
     }
 
     @Override
     public Set<String> getIPsForUser(String user, Date after, Date before) {
-        return getAllIpList(after, before, listLogs, user, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, user, null, null);
     }
 
     @Override
     public Set<String> getIPsForEvent(Event event, Date after, Date before) {
-        return getAllIpList(after, before, listLogs, null, event, null);
+        return getAllIpList(IpQuery, after, before, listLogs, null, event, null);
     }
 
     @Override
     public Set<String> getIPsForStatus(Status status, Date after, Date before) {
-        return getAllIpList(after, before, listLogs, null, null, status);
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, status);
     }
 
+    @Override
+    public Set<String> getAllUsers() {
+        return getAllIpList(UserQuery, null, null, listLogs, null, null, null);
+    }
+
+    @Override
+    public int getNumberOfUsers(Date after, Date before) {
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null).size();
+    }
+
+    @Override
+    public int getNumberOfUserEvents(String user, Date after, Date before) {
+        return getAllIpList(UserQuery, after, before, listLogs, user, null, null).size();
+    }
+
+    @Override
+    public Set<String> getUsersForIP(String ip, Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getLoggedUsers(Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getDownloadedPluginUsers(Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getWroteMessageUsers(Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getSolvedTaskUsers(Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getSolvedTaskUsers(Date after, Date before, int task) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getDoneTaskUsers(Date after, Date before) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getDoneTaskUsers(Date after, Date before, int task) {
+        return null;
+    }
 }
