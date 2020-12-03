@@ -9,11 +9,12 @@ import java.util.Set;
 
 abstract public class BaseClass {
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     private static int countEventsOfUser;
 
-    public static Set<String> getAllIpList(String query, Date after, Date before, List<String> listLogs, String user, Event event, Status status) {
+    public static Set<String> getAllIpList(String query, Date after, Date before, List<String> listLogs, String user, Event event, Status status, String ip, AllMethods methods) {
         Set<String> ipAddress = new HashSet<>();
         countEventsOfUser = 0;
 
@@ -24,7 +25,7 @@ abstract public class BaseClass {
                 if(query.equals("IpQuery"))
                     checkNullIpQuery(user, event, status, ipAddress, letter);
                 else if(query.equals("UserQuery"))
-                    checkNullUserQuery(user, ipAddress, letter);
+                    checkNullUserQuery(user, ipAddress, letter, ip, methods);
             }
         } else if(after == null) {
             // Записи, у которых дата меньше или равна before.
@@ -35,7 +36,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге after == null.");
@@ -51,7 +52,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -67,7 +68,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -94,15 +95,42 @@ abstract public class BaseClass {
         }
     }
 
-    private static void checkNullUserQuery(String user, Set<String> ipAddress, String[] letter) {
+    private static void checkNullUserQuery(String user, Set<String> ipAddress, String[] letter, String ip, AllMethods methods) {
         if(user != null) {
             if(user.equals(letter[1])) {
                 ipAddress.add(String.valueOf(countEventsOfUser));
                 countEventsOfUser++;
             }
+        } else if(ip != null) {
+            if(ip.equals(letter[0]))
+                ipAddress.add(letter[1]);
+        } else if(methods != null) {
+            checkMethods(ipAddress, letter, methods);
         } else {
             ipAddress.add(letter[1]);
         }
+
+    }
+
+    private static void checkMethods(Set<String> ipAddress, String[] letter, AllMethods methods) {
+        if(methods.equals(AllMethods.getLoggedUsers)) {
+            if(letter[3].split(" ")[0].equals(Event.LOGIN.toString()))
+                ipAddress.add(letter[1]);
+        } else if(methods.equals(AllMethods.getDownloadedPluginUsers)) {
+            System.out.println(1);
+            // Логика
+        } else if(methods.equals(AllMethods.getWroteMessageUsers)) {
+            System.out.println(1);
+            // Логика
+        } else if(methods.equals(AllMethods.getSolvedTaskUsers)) {
+            System.out.println(1);
+            // Логика
+        } else if(methods.equals(AllMethods.getDoneTaskUsers)) {
+            System.out.println(1);
+            // Логика
+        }
+
+
 
     }
 
