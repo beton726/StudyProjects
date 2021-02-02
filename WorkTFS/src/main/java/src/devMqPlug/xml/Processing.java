@@ -14,7 +14,7 @@ import org.jdom2.output.XMLOutputter;
  * rqtm, status, statuscode)
  *
  * Места вызовов:
- * MsgListener - получение сообщения овтета и очереди
+ * MsgListener - получение сообщения ответа и очереди
 ***/
 public class Processing {
 

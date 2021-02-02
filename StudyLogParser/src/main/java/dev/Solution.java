@@ -18,10 +18,14 @@ public class Solution {
 //        System.out.println(logParser.getIPsForEvent(Event.LOGIN, new Date(1346284800000L), new Date(1393632000000L)));
 //        System.out.println(logParser.getIPsForStatus(Status.OK, null, null).size());
 //        System.out.println(logParser.getAllUsers());
-//        System.out.println(logParser.getNumberOfUserEvents("Vasya Pupkin", null, null));
-        System.out.println(logParser.getLoggedUsers( null,  null));
+//        System.out.println(logParser.getNumberOfUserEvents("Amigo", null, null));
+        System.out.println(logParser.getDoneTaskUsers(null, null, 15));
+//        System.out.println(logParser.getSolvedTaskUsers( null,  null, 15));
 
 
+        // 1346284800000 - 30.08.2012
+        // 1379030400000 - 13.09.2013
+        // 1393632000000 - 01.03.2014
 
     }
 }

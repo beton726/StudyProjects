@@ -9,14 +9,10 @@ import java.util.Set;
 
 abstract public class BaseClass {
 
-
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-    private static int countEventsOfUser;
-
-    public static Set<String> getAllIpList(String query, Date after, Date before, List<String> listLogs, String user, Event event, Status status, String ip, AllMethods methods) {
+    public static Set<String> getAllIpList(String query, Date after, Date before, List<String> listLogs, String user, Event event, Status status, String ip, AllMethods methods, Integer task) {
         Set<String> ipAddress = new HashSet<>();
-        countEventsOfUser = 0;
 
         if(after == null && before == null) {
             // Обработать абсолютно все записи.
@@ -25,7 +21,7 @@ abstract public class BaseClass {
                 if(query.equals("IpQuery"))
                     checkNullIpQuery(user, event, status, ipAddress, letter);
                 else if(query.equals("UserQuery"))
-                    checkNullUserQuery(user, ipAddress, letter, ip, methods);
+                    checkNullUserQuery(user, ipAddress, letter, ip, methods, task);
             }
         } else if(after == null) {
             // Записи, у которых дата меньше или равна before.
@@ -36,7 +32,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods, task);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге after == null.");
@@ -52,7 +48,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods, task);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -68,7 +64,7 @@ abstract public class BaseClass {
                         if(query.equals("IpQuery"))
                             checkNullIpQuery(user, event, status, ipAddress, letter);
                         else if(query.equals("UserQuery"))
-                            checkNullUserQuery(user, ipAddress, letter, ip, methods);
+                            checkNullUserQuery(user, ipAddress, letter, ip, methods, task);
                     }
                 } catch (ParseException e) {
                     System.out.println("Ошибка при парсинге before == null.");
@@ -95,15 +91,16 @@ abstract public class BaseClass {
         }
     }
 
-    private static void checkNullUserQuery(String user, Set<String> ipAddress, String[] letter, String ip, AllMethods methods) {
+    private static void checkNullUserQuery(String user, Set<String> ipAddress, String[] letter, String ip, AllMethods methods, Integer task) {
         if(user != null) {
             if(user.equals(letter[1])) {
-                ipAddress.add(String.valueOf(countEventsOfUser));
-                countEventsOfUser++;
+                ipAddress.add(letter[3]);
             }
         } else if(ip != null) {
             if(ip.equals(letter[0]))
                 ipAddress.add(letter[1]);
+        } else if(methods != null && task != null) {   // Доделать с task
+            checkMethodsTask(ipAddress, letter, methods, task);
         } else if(methods != null) {
             checkMethods(ipAddress, letter, methods);
         } else {
@@ -113,25 +110,44 @@ abstract public class BaseClass {
     }
 
     private static void checkMethods(Set<String> ipAddress, String[] letter, AllMethods methods) {
-        if(methods.equals(AllMethods.getLoggedUsers)) {
-            if(letter[3].split(" ")[0].equals(Event.LOGIN.toString()))
-                ipAddress.add(letter[1]);
-        } else if(methods.equals(AllMethods.getDownloadedPluginUsers)) {
-            System.out.println(1);
-            // Логика
-        } else if(methods.equals(AllMethods.getWroteMessageUsers)) {
-            System.out.println(1);
-            // Логика
-        } else if(methods.equals(AllMethods.getSolvedTaskUsers)) {
-            System.out.println(1);
-            // Логика
-        } else if(methods.equals(AllMethods.getDoneTaskUsers)) {
-            System.out.println(1);
-            // Логика
+        switch (methods) {
+            case getLoggedUsers:
+                addListIpAddress(ipAddress, letter, Event.LOGIN);
+                break;
+            case getDownloadedPluginUsers:
+                addListIpAddress(ipAddress, letter, Event.DOWNLOAD_PLUGIN);
+                break;
+            case getWroteMessageUsers:
+                addListIpAddress(ipAddress, letter, Event.WRITE_MESSAGE);
+                break;
+            case getSolvedTaskUsers:
+                addListIpAddress(ipAddress, letter, Event.SOLVE_TASK);
+                break;
+            case getDoneTaskUsers:
+                addListIpAddress(ipAddress, letter, Event.DONE_TASK);
+                break;
         }
+    }
 
+    private static void checkMethodsTask(Set<String> ipAddress, String[] letter, AllMethods methods, Integer task) {
+        switch (methods) {
+            case getSolvedTaskUsersNum:
+                addListIpAddressTask(ipAddress, letter, Event.SOLVE_TASK, task);
+                break;
+            case getDoneTaskUsersNum:
+                addListIpAddressTask(ipAddress, letter, Event.DONE_TASK, task);
+                break;
+        }
+    }
 
+    private static void addListIpAddress(Set<String> ipAddress, String[] letter, Event ev) {
+        if(letter[3].split(" ")[0].equals(ev.toString()))
+            ipAddress.add(letter[1]);
+    }
 
+    private static void addListIpAddressTask(Set<String> ipAddress, String[] letter, Event ev, Integer task) {
+        if(letter[3].split(" ")[0].equals(ev.toString()) && letter[3].split(" ")[1].equals(task.toString()))
+            ipAddress.add(letter[1]);
     }
 
 }

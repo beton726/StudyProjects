@@ -47,81 +47,81 @@ public class LogParser extends BaseClass implements IPQuery, UserQuery {
 
     @Override
     public int getNumberOfUniqueIPs(Date after, Date before) {
-        return getAllIpList(IpQuery, after, before, listLogs, null, null, null, null, null).size();
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, null, null, null, null).size();
     }
 
     @Override
     public Set<String> getUniqueIPs(Date after, Date before) {
-        return getAllIpList(IpQuery, after, before, listLogs, null, null, null, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, null, null, null, null);
     }
 
     @Override
     public Set<String> getIPsForUser(String user, Date after, Date before) {
-        return getAllIpList(IpQuery, after, before, listLogs, user, null, null, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, user, null, null, null, null, null);
     }
 
     @Override
     public Set<String> getIPsForEvent(Event event, Date after, Date before) {
-        return getAllIpList(IpQuery, after, before, listLogs, null, event, null, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, null, event, null, null, null, null);
     }
 
     @Override
     public Set<String> getIPsForStatus(Status status, Date after, Date before) {
-        return getAllIpList(IpQuery, after, before, listLogs, null, null, status, null, null);
+        return getAllIpList(IpQuery, after, before, listLogs, null, null, status, null, null, null);
     }
 
     @Override
     public Set<String> getAllUsers() {
-        return getAllIpList(UserQuery, null, null, listLogs, null, null, null, null, null);
+        return getAllIpList(UserQuery, null, null, listLogs, null, null, null, null, null, null);
     }
 
     @Override
     public int getNumberOfUsers(Date after, Date before) {
-        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, null).size();
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, null, null).size();
     }
 
     @Override
     public int getNumberOfUserEvents(String user, Date after, Date before) {
-        return getAllIpList(UserQuery, after, before, listLogs, user, null, null, null, null).size();
+        return getAllIpList(UserQuery, after, before, listLogs, user, null, null, null, AllMethods.getNumberOfUserEvents, null).size();
     }
 
     @Override
     public Set<String> getUsersForIP(String ip, Date after, Date before) {
-        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, ip, null);
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, ip, null, null);
     }
 
     @Override
     public Set<String> getLoggedUsers(Date after, Date before) {
-        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getLoggedUsers);
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getLoggedUsers, null);
     }
 
     @Override
     public Set<String> getDownloadedPluginUsers(Date after, Date before) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getDownloadedPluginUsers, null);
     }
 
     @Override
     public Set<String> getWroteMessageUsers(Date after, Date before) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getWroteMessageUsers, null);
     }
 
     @Override
     public Set<String> getSolvedTaskUsers(Date after, Date before) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getSolvedTaskUsers, null);
     }
 
     @Override
     public Set<String> getSolvedTaskUsers(Date after, Date before, int task) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getSolvedTaskUsersNum, task);
     }
 
     @Override
     public Set<String> getDoneTaskUsers(Date after, Date before) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getDoneTaskUsers, null);
     }
 
     @Override
     public Set<String> getDoneTaskUsers(Date after, Date before, int task) {
-        return null;
+        return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getDoneTaskUsersNum, task);
     }
 }
