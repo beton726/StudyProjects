@@ -1,5 +1,6 @@
 package dev;
 
+import dev.query.DateQuery;
 import dev.query.IPQuery;
 import dev.query.UserQuery;
 
@@ -15,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class LogParser extends BaseClass implements IPQuery, UserQuery {
+public class LogParser extends BaseClass implements IPQuery, UserQuery, DateQuery {
 
     private static List<String> listLogs = new ArrayList<>();
 
@@ -124,4 +125,57 @@ public class LogParser extends BaseClass implements IPQuery, UserQuery {
     public Set<String> getDoneTaskUsers(Date after, Date before, int task) {
         return getAllIpList(UserQuery, after, before, listLogs, null, null, null, null, AllMethods.getDoneTaskUsersNum, task);
     }
+
+    @Override
+    public Set<Date> getDatesForUserAndEvent(String user, Event event, Date after, Date before) {
+        return getAllDateList(after, before, listLogs, user, event, null, null, AllMethods.getDatesForUserAndEvent, null);
+    }
+
+    @Override
+    public Set<Date> getDatesWhenSomethingFailed(Date after, Date before) {
+        return getAllDateList(after, before, listLogs, null, null, null, null, AllMethods.getDatesWhenSomethingFailed, null);
+    }
+
+    @Override
+    public Set<Date> getDatesWhenErrorHappened(Date after, Date before) {
+        return getAllDateList(after, before, listLogs, null, null, null, null, AllMethods.getDatesWhenErrorHappened, null);
+    }
+
+    @Override
+    public Date getDateWhenUserLoggedFirstTime(String user, Date after, Date before) {
+        Set<Date> dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserLoggedFirstTime, null);
+        Date date = null;
+        for (Date dates : dateSet)
+            date = dates;
+        return date;
+    }
+
+    @Override
+    public Date getDateWhenUserSolvedTask(String user, int task, Date after, Date before) {
+        Set<Date>dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserSolvedTask, task);
+        Date date = null;
+        for (Date dates : dateSet)
+            date = dates;
+        return date;
+    }
+
+    @Override
+    public Date getDateWhenUserDoneTask(String user, int task, Date after, Date before) {
+        Set<Date>dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserSolvedTask, task);
+        Date date = null;
+        for (Date dates : dateSet)
+            date = dates;
+        return date;
+    }
+
+    @Override
+    public Set<Date> getDatesWhenUserWroteMessage(String user, Date after, Date before) {
+        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenErrorHappened, null);
+    }
+
+    @Override
+    public Set<Date> getDatesWhenUserDownloadedPlugin(String user, Date after, Date before) {
+        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenErrorHappened, null);
+    }
+
 }
