@@ -5,13 +5,8 @@ import dev.query.IPQuery;
 import dev.query.UserQuery;
 
 import java.io.*;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -144,38 +139,50 @@ public class LogParser extends BaseClass implements IPQuery, UserQuery, DateQuer
     @Override
     public Date getDateWhenUserLoggedFirstTime(String user, Date after, Date before) {
         Set<Date> dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserLoggedFirstTime, null);
-        Date date = null;
-        for (Date dates : dateSet)
-            date = dates;
-        return date;
+        if(dateSet.size() == 0)
+            return null;
+        Date minDate = dateSet.iterator().next();
+        for (Date dates : dateSet) {
+            if(dates.getTime() < minDate.getTime())
+                minDate = dates;
+        }
+        return minDate;
     }
 
     @Override
     public Date getDateWhenUserSolvedTask(String user, int task, Date after, Date before) {
-        Set<Date>dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserSolvedTask, task);
-        Date date = null;
-        for (Date dates : dateSet)
-            date = dates;
-        return date;
+        Set<Date> dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserSolvedTask, task);
+        if(dateSet.size() == 0)
+            return null;
+        Date minDate = dateSet.iterator().next();
+        for (Date dates : dateSet) {
+            if(dates.getTime() < minDate.getTime())
+                minDate = dates;
+        }
+        return minDate;
     }
 
     @Override
     public Date getDateWhenUserDoneTask(String user, int task, Date after, Date before) {
-        Set<Date>dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserSolvedTask, task);
-        Date date = null;
-        for (Date dates : dateSet)
-            date = dates;
-        return date;
+        Set<Date> dateSet = getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDateWhenUserDoneTask, task);
+        if(dateSet.size() == 0)
+            return null;
+        Date minDate = dateSet.iterator().next();
+        for (Date dates : dateSet) {
+            if(dates.getTime() < minDate.getTime())
+                minDate = dates;
+        }
+        return minDate;
     }
 
     @Override
     public Set<Date> getDatesWhenUserWroteMessage(String user, Date after, Date before) {
-        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenErrorHappened, null);
+        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenUserWroteMessage, null);
     }
 
     @Override
     public Set<Date> getDatesWhenUserDownloadedPlugin(String user, Date after, Date before) {
-        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenErrorHappened, null);
+        return getAllDateList(after, before, listLogs, user, null, null, null, AllMethods.getDatesWhenUserDownloadedPlugin, null);
     }
 
 }

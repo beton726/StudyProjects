@@ -13,7 +13,10 @@ import java.util.stream.Stream;
 public class Solution {
     public static void main(String[] args) {
         LogParser logParser = new LogParser(Paths.get("D:\\Programming\\Java\\Java_Programm\\StudyProjects\\StudyLogParser\\src\\main\\java\\dev\\logs\\"));
-        System.out.println(logParser.getDateWhenUserSolvedTask("Amigo", 18, null, null));
+//        System.out.println(logParser.getDateWhenUserDoneTask("Amigog",25, null, null));
+        System.out.println(logParser.getDateWhenUserDoneTask("Amigog",25, null, null));
+
+
 //        logParser.getDatesForUserAndEvent("Amigo", Event.LOGIN, null, null);
 //        System.out.println(logParser.getDatesForUserAndEvent("Amigo", Event.LOGIN,null, null));
 //        System.out.println(logParser.getIPsForUser("Vasya Pupkin", new Date(1346284800000L), new Date(1393632000000L)));

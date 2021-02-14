@@ -25,5 +25,16 @@ public enum AllMethods {
     getDateWhenUserSolvedTask,
     getDateWhenUserDoneTask,
     getDatesWhenUserWroteMessage,
-    getDatesWhenUserDownloadedPlugin
+    getDatesWhenUserDownloadedPlugin,
+
+    getNumberOfAllEvents,
+    getAllEvents,
+    getEventsForIP,
+    getEventsForUser,
+    getFailedEvents,
+    getErrorEvents,
+    getNumberOfAttemptToSolveTask,
+    getNumberOfSuccessfulAttemptToSolveTask,
+    getAllSolvedTasksAndTheirNumber,
+    getAllDoneTasksAndTheirNumber
 }

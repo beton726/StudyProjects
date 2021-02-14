@@ -76,10 +76,6 @@ abstract public class BaseClass {
         return ipAddress;
     }
 
-    private static boolean flagFT = false;
-    private static boolean flagST = false;
-    private static boolean flagDT = false;
-
     public static Set<Date> getAllDateList(Date after, Date before, List<String> listLogs, String user, Event event, Status status, String ip, AllMethods methods, Integer task) {
         Set<Date> infoDate = new HashSet<>();
 
@@ -126,8 +122,6 @@ abstract public class BaseClass {
                 }
             }
         }
-//        if(methods.equals(AllMethods.getDateWhenUserLoggedFirstTime) || methods.equals(AllMethods.getDateWhenUserSolvedTask) || methods.equals(AllMethods.getDateWhenUserDoneTask))
-//            infoDate.add(null);
         return infoDate;
     }
 
@@ -169,7 +163,7 @@ abstract public class BaseClass {
     }
 
     private static void methGetDatesForUserAndEvent(String user, Event event, String[] letter, Set<Date> infoDate) {
-        if(letter[1].equals(user) && letter[3].equals(event.toString())) {
+        if(letter[1].equals(user) && letter[3].split(" ")[0].equals(event.toString())) {
             try {
                 infoDate.add(sdf.parse(letter[2]));
             } catch (ParseException e) {
@@ -201,10 +195,9 @@ abstract public class BaseClass {
 
     private static void methGetDateWhenUserLoggedFirstTime(String user, String[] letter, Set<Date> infoDate) {
         try {
-            if(letter[1].equals(user) && letter[3].equals(Event.LOGIN.toString()) && !flagFT) {
+            String[] spitLetter = letter[3].split(" ");
+            if(letter[1].equals(user) && spitLetter[0].equals(Event.LOGIN.toString()))
                 infoDate.add(sdf.parse(letter[2]));
-                flagFT = true;
-            }
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("Error parse date: Method methGetDateWhenUserLoggedFirstTime.");
@@ -214,10 +207,8 @@ abstract public class BaseClass {
     public static void methodGetDateWhenUserSolvedTask(String user, String[] letter, Set<Date> infoDate, Integer task) {
         try {
             String[] spitLetter = letter[3].split(" ");
-            if(letter[1].equals(user) && spitLetter[0].equals(Event.SOLVE_TASK.toString()) && spitLetter[1].equals(String.valueOf(task)) && !flagST) {
+            if(letter[1].equals(user) && spitLetter[0].equals(Event.SOLVE_TASK.toString()) && spitLetter[1].equals(String.valueOf(task)))
                 infoDate.add(sdf.parse(letter[2]));
-                flagST = true;
-            }
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("Error parse date: Method methodGetDateWhenUserSolvedTask.");
@@ -227,10 +218,8 @@ abstract public class BaseClass {
     public static void methodGetDateWhenUserDoneTask(String user, String[] letter, Set<Date> infoDate, Integer task) {
         try {
             String[] spitLetter = letter[3].split(" ");
-            if(letter[1].equals(user) && spitLetter[0].equals(Event.DONE_TASK.toString()) && spitLetter[1].equals(String.valueOf(task)) && !flagDT) {
+            if(letter[1].equals(user) && spitLetter[0].equals(Event.DONE_TASK.toString()) && spitLetter[1].equals(String.valueOf(task)))
                 infoDate.add(sdf.parse(letter[2]));
-                flagDT = true;
-            }
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("Error parse date: Method methodGetDateWhenUserDoneTask.");
@@ -239,7 +228,7 @@ abstract public class BaseClass {
 
     public static void methodGetDatesWhenUserWroteMessage(String user, String[] letter, Set<Date> infoDate) {
         try {
-            if(letter[1].equals(user) && letter[3].equals(Event.WRITE_MESSAGE.toString())) {
+            if(letter[1].equals(user) && letter[3].split(" ")[0].equals(Event.WRITE_MESSAGE.toString())) {
                 infoDate.add(sdf.parse(letter[2]));
             }
         } catch (ParseException e) {
@@ -250,7 +239,7 @@ abstract public class BaseClass {
 
     public static void methodGetDatesWhenUserDownloadedPlugin(String user, String[] letter, Set<Date> infoDate) {
         try {
-            if(letter[1].equals(user) && letter[3].equals(Event.DOWNLOAD_PLUGIN.toString())) {
+            if(letter[1].equals(user) && letter[3].split(" ")[0].equals(Event.DOWNLOAD_PLUGIN.toString())) {
                 infoDate.add(sdf.parse(letter[2]));
             }
         } catch (ParseException e) {
